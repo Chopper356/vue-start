@@ -1,77 +1,51 @@
 <template>
 	<div class="container">
-		<form class="pt-3" @submit.prevent="onSubmit">
-			<div class="form-group">
-				<label for="email">Email</label>
-				<input type="email" id="email" class="form-control" :class="{'is-invalid': $v.email.$error}" @blur="$v.email.$touch()" v-model="email">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+					<ul class="navbar-nav">
+						<!-- <li class="nav-item">
+							<router-link class="nav-link active" aria-current="page" to="/">Home</router-link>
+						</li>
+						<li class="nav-item">
+							<router-link class="nav-link" to="/register">Register</router-link>
+						</li> -->
 
-				<div class="invalid-feedback" v-if="!$v.email.required">Email field is required</div>
-				<div class="invalid-feedback" v-if="!$v.email.email">This field should be an email</div>
-				<div class="invalid-feedback" v-if="!$v.email.uniqEmail">This email has been used</div>
+						<router-link tag="li" class="nav-item" to="/" exact active-class="active">
+							<a class="nav-link">Home</a>
+						</router-link>
+						<router-link tag="li" class="nav-item" to="/register" active-class="active">
+							<a class="nav-link">Register</a>
+						</router-link>
+						<router-link tag="li" class="nav-item" to="/cars" exact active-class="active">
+							<a class="nav-link">Cars</a>
+						</router-link>
+						<router-link tag="li" class="nav-item" to="/car/2" active-class="active">
+							<a class="nav-link">Car 2</a>
+						</router-link>
+						<router-link tag="li" class="nav-item" to="/car/5" exact active-class="active">
+							<a class="nav-link">Car 5</a>
+						</router-link>
+
+					</ul>
+				</div>
 			</div>
-			<div class="form-group pt-3">
-				<label for="password">Password</label>
-				<input type="password" id="password" class="form-control" :class="{'is-invalid': $v.password.$error}" @blur="$v.password.$touch()" v-model="password">
-
-				<div class="invalid-feedback" v-if="!$v.password.required">Password field is required</div>
-				<div class="invalid-feedback" v-if="!$v.password.minLength">Min length of password is {{ $v.password.$params.minLength.min }} Not it is {{ password.length }}</div>
-			</div>
-			<div class="form-group pt-3">
-				<label for="confirm">Confirm password</label>
-				<input type="password" id="confirm" class="form-control" :class="{'is-invalid': $v.confirmPassword.$error}" @blur="$v.confirmPassword.$touch()" v-model="confirmPassword">
-
-				<div class="invalid-feedback" v-if="!$v.confirmPassword.required">Password field is required</div>
-				<div class="invalid-feedback" v-if="!$v.confirmPassword.sameAs">Password should match</div>
-			</div>
-
-			<button type="submit" class="btn btn-primary mt-3" :disabled="$v.$invalid">Submit</button>
-		</form>
+		</nav>
+		<router-view></router-view>
 	</div>
 </template>
 
 <script>
-import { required, email, minLength, sameAs } from 'vuelidate/lib/validators';
 
 export default {
 	data: () => ({
-		email: "",
-		password: "",
-		confirmPassword: ""
-	}),
-	methods: {
-		onSubmit() {
-			console.log("Email", this.email);
-			console.log("Password", this.password);
-		}
-	},
-	validations: {
-		email: {
-			required,
-			email,
-			uniqEmail: (newEmail) => {
-				if (newEmail === "") return true;
 
-				return new Promise((resolve) => {
-					setTimeout(() => {
-						const value = newEmail !== "qwe@mail.ru";
-						
-						resolve(value);
-					}, 1000)
-				})
-			}
-		},
-		password: {
-			required,
-			minLength: minLength(6)
-		},
-		confirmPassword: {
-			required,
-			sameAs: sameAs('password')
-		}
-	}
+	}),
 }
 </script>
 
 <style>
-
-</style>
+	.nav-item.active a {
+		color: #3498db !important;
+	}
+</style>>
