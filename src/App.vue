@@ -48,4 +48,5 @@ export default {
 	.nav-item.active a {
 		color: #3498db !important;
 	}
+
 </style>>
